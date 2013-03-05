@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <div class="hero-unit">
+      <h1>Twidder</h1>
+      <p>A twitter like application that allows you to post with more than a <strong>stupid 140 char limit!</strong></p>
+      <form method="POST" action="{% url 'frontend.login' %}">
+      {% csrf_token %}
+      <fieldset>
+        <legend>Give it a try!</legend>
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Username" />
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Password" />
+        <p><button type="submit" class="btn">Gimme More Characters!</button></p>
+      </fieldset>
+    </form>
+{% endblock %}

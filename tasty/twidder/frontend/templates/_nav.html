@@ -1,0 +1,13 @@
+<div class="navbar navbar-fixed-top">
+   <div class="navbar-inner">
+     <div class="container">
+          <!-- Be sure to leave the brand out there if you want it shown -->
+          <a class="brand" href="/"><strong>T</strong>widder</a>
+          <ul class="nav">
+              {% if user.is_authenticated %}
+                <li><a href="{% url 'frontend.logout' %}"><i class="icon-off"></i> Sign Out</a></li>
+              {% endif %}
+          </ul>
+     </div>
+   </div>
+</div>

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <script type="text/x-handlebars" data-template-name="application">
+        {%  verbatim %}
+            {{ outlet }}
+        {% endverbatim %}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="posts">
+        <div class="row span7">
+            <h4>Welcome {{ user.username }},</h4>
+            <form>
+                {% csrf_token %}
+                {% verbatim %}
+                    {{ view Ember.TextArea valueBinding="post_body" placeholder="Complain about your job, spouse, or this meetup here ..." rows="4" classNames="span7" insertNewlineBinding="insert" }}
+                    <p class="pull-left" class="counter"><strong>{{ post_body_count }}</strong> of <strong>&#8734;</strong> characters</p>
+                    <p class="pull-right"><button type="submit" class="btn" {{ action "insert" }}>Post My Status</button></p>
+                {% endverbatim %}
+            </form>
+        </div>
+         {% verbatim %}
+            <div class="row span7">
+                    <hr />
+                    {{#if view.controller}}
+                            {{#each post in view.controller}}
+                                {{#if post.body}}
+                                    <p class="post_body">{{ explosivo post.body }}</p>
+                                {{else}}
+                                    <p class="post_body"><em>Tweet was empty. Boring!</em></p>
+                                {{/if}}
+                                <p>
+                                    {{ post.user.username }}
+                                    <span class="date">
+                                        <a {{ bindAttr href="post.href" }}>{{ post.date }}</a>
+                                    </span>
+                                    <a class="delete" href="#" {{ action "delete" post}}>delete</a>
+                                </p>
+                                <hr />
+                            {{/each}}
+                            {{#if should_load_more}}
+                                <button class="btn btn-large span7 load-more" {{ action "load_more" }}>Load more tweeds</button>
+                            {{/if}}
+                    {{else}}
+                        <p><strong>No posts could be found</strong></p>
+                    {{/if}}
+            </div>
+        {% endverbatim %}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="post">
+        <div class="row span8">
+        {% verbatim %}
+            {{#if model.body}}
+                <blockquote>
+                  <p>{{ explosivo model.body }}</p>
+                  <small>{{ model.user.username }}</small>
+                </blockquote>
+            {{else}}
+                <blockquote>
+                  <p>Tweet was empty. Boring!</p>
+                  <small>{{ model.user.username }}</small>
+                </blockquote>
+            {{/if}}
+        {% endverbatim %}
+        </div>
+    </script>
+{% endblock %}
+
+{% block extra_scripts %}
+<script type="text/javascript" src="{{ STATIC_URL }}js/date.format.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/app.js"></script>
+<script type="text/javascript">
+    var application_user = null;
+
+    // setup the applications user in main scope
+    App.DataSource.get('api/v1/user/{{ user.pk }}/', function(data) {
+        application_user = App.User.create(data);
+    });
+</script>
+{% endblock %}

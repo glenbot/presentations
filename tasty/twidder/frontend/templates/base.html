@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Twidder - {% block title %}A twitter like application{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/app.css" />
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+    <div class="container" id="main-container">
+        {% include "_nav.html" %}
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/handlebars.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/ember-1.0.0-rc.1.js"></script>
+{% block extra_scripts %}{% endblock %}
+</html>

@@ -1,0 +1,26 @@
+#content {
+    margin-top: 75px;
+}
+
+.post_body {
+    color: #777;
+}
+
+.date a {
+    color: #777;
+    margin-left: 20px;
+    font-size: 10px;
+}
+
+.delete {
+    margin-left: 20px;
+}
+
+.counter {
+    color: #555;
+}
+
+.load-more {
+    margin-left: 0;
+    margin-bottom: 25px;
+}
